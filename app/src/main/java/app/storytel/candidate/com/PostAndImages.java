@@ -1,4 +1,4 @@
-package app.bookyfever.com;
+package app.storytel.candidate.com;
 
 import java.util.List;
 

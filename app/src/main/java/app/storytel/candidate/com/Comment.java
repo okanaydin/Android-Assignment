@@ -1,4 +1,4 @@
-package app.bookyfever.com;
+package app.storytel.candidate.com;
 
 /**
  * Created by finne on 14/12/2017.

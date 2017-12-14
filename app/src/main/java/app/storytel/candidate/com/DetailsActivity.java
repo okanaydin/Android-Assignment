@@ -1,4 +1,4 @@
-package app.bookyfever.com;
+package app.storytel.candidate.com;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

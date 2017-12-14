@@ -1,4 +1,4 @@
-package app.bookyfever.com;
+package app.storytel.candidate.com;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,7 +39,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         holder.body.setText(mData.mPosts.get(position).body);
         int index = new Random().nextInt(mData.mPhotos.size() - 1);
         String imageUrl = mData.mPhotos.get(index).thumbnailUrl;
-        //TODO load image
         mRequestManager.load(imageUrl).into(holder.image);
         holder.body.setOnClickListener(new View.OnClickListener() {
             @Override
