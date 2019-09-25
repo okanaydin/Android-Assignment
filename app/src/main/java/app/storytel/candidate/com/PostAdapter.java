@@ -13,10 +13,6 @@ import com.bumptech.glide.RequestManager;
 
 import java.util.Random;
 
-/**
- * Created by finne on 14/12/2017.
- */
-
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private PostAndImages mData;
