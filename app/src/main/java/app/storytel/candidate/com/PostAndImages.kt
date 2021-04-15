@@ -1,13 +1,6 @@
-package app.storytel.candidate.com;
+package app.storytel.candidate.com
 
-import java.util.List;
-
-public class PostAndImages {
-    public List<Post> mPosts;
-    public List<Photo> mPhotos;
-
-    public PostAndImages(List<Post> post, List<Photo> photos) {
-        mPosts = post;
-        mPhotos = photos;
-    }
-}
+data class PostAndImages(
+    var mPosts: List<Post>,
+    var mPhotos: List<Photo>
+)

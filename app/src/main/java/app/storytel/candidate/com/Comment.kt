@@ -1,9 +1,9 @@
-package app.storytel.candidate.com;
+package app.storytel.candidate.com
 
-public class Comment {
-    public int postId;
-    public int id;
-    public String name;
-    public String email;
-    public String body;
-}
+data class Comment(
+    var postId: Int = 0,
+    var id: Int = 0,
+    var name: String? = null,
+    var email: String? = null,
+    var body: String? = null
+)
