@@ -1,8 +1,8 @@
-package app.storytel.candidate.com;
+package app.storytel.candidate.com
 
-public class Post {
-    public int userId;
-    public int id;
-    public String title;
-    public String body;
-}
+data class Post(
+    var userId: Int = 0,
+    var id: Int = 0,
+    var title: String? = null,
+    var body: String? = null,
+)

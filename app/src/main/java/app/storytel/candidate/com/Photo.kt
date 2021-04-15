@@ -1,9 +1,9 @@
-package app.storytel.candidate.com;
+package app.storytel.candidate.com
 
-public class Photo {
-    public int albumId;
-    public int id;
-    public String title;
-    public String url;
-    public String thumbnailUrl;
-}
+data class Photo(
+    var albumId: Int = 0,
+    var id: Int = 0,
+    var title: String? = null,
+    var url: String? = null,
+    var thumbnailUrl: String? = null
+)

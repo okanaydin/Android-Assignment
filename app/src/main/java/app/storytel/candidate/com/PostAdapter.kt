@@ -1,69 +1,60 @@
-package app.storytel.candidate.com;
+package app.storytel.candidate.com
 
-import android.app.Activity;
-import android.content.Intent;
-import androidx.recyclerview.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.app.Activity
+import android.content.Intent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import app.storytel.candidate.com.PostAdapter.PostViewHolder
+import com.bumptech.glide.RequestManager
+import java.util.Random
 
-import com.bumptech.glide.RequestManager;
-
-import java.util.Random;
-
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
-
-    private PostAndImages mData;
-    private RequestManager mRequestManager;
-    private Activity mActivity;
-
-    public PostAdapter(RequestManager requestManager, Activity activity) {
-        mRequestManager = requestManager;
-        mActivity = activity;
+class PostAdapter(private val mRequestManager: RequestManager, private val mActivity: Activity) :
+    RecyclerView.Adapter<PostViewHolder>() {
+    private var mData: PostAndImages? = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+        return PostViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.post_item, parent, false)
+        )
     }
 
-    @Override
-    public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new PostViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.post_item, parent, false));
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        holder.title.text = mData!!.mPosts[position].title
+        holder.body.text = mData!!.mPosts[position].body
+        val index = Random().nextInt(mData!!.mPhotos.size - 1)
+        val imageUrl = mData!!.mPhotos[index].thumbnailUrl
+        mRequestManager.load(imageUrl).into(holder.image)
+        holder.body.setOnClickListener {
+            mActivity.startActivity(
+                Intent(
+                    mActivity,
+                    DetailsActivity::class.java
+                )
+            )
+        }
     }
 
-    @Override
-    public void onBindViewHolder(PostViewHolder holder, int position) {
-        holder.title.setText(mData.mPosts.get(position).title);
-        holder.body.setText(mData.mPosts.get(position).body);
-        int index = new Random().nextInt(mData.mPhotos.size() - 1);
-        String imageUrl = mData.mPhotos.get(index).thumbnailUrl;
-        mRequestManager.load(imageUrl).into(holder.image);
-        holder.body.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivity.startActivity(new Intent(mActivity, DetailsActivity.class));
-            }
-        });
+    fun setData(data: PostAndImages?) {
+        mData = data
+        notifyDataSetChanged()
     }
 
-    public void setData(PostAndImages data) {
-        mData = data;
-        notifyDataSetChanged();
+    override fun getItemCount(): Int {
+        return if (mData == null || mData!!.mPhotos == null) 0 else mData!!.mPosts.size
     }
 
-    @Override
-    public int getItemCount() {
-        return mData == null || mData.mPhotos == null ? 0 : mData.mPosts.size();
-    }
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var title: TextView
+        var body: TextView
+        var image: ImageView
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView body;
-        ImageView image;
-
-        public PostViewHolder(View itemView) {
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-            body = itemView.findViewById(R.id.body);
-            image = itemView.findViewById(R.id.image);
+        init {
+            title = itemView.findViewById(R.id.title)
+            body = itemView.findViewById(R.id.body)
+            image = itemView.findViewById(R.id.image)
         }
     }
 }
