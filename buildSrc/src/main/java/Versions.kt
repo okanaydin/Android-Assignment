@@ -4,6 +4,7 @@ object Versions {
     const val appCompatVersion = "1.2.0"
     const val cardViewVersion = "1.0.0"
     const val constraintLayoutVersion = "1.3.2"
+    const val daggerHiltVersion = "2.33-beta"
     const val espressoVersion = "3.3.0"
     const val glideVersion = "4.12.0"
     const val gradleVersion = "4.1.3"
