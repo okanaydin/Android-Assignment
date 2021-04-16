@@ -25,10 +25,10 @@ class PostAdapter(private val mRequestManager: RequestManager, private val mActi
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.title.text = mData!!.mPosts[position].title
-        holder.body.text = mData!!.mPosts[position].body
-        val index = Random().nextInt(mData!!.mPhotos.size - 1)
-        val imageUrl = mData!!.mPhotos[index].thumbnailUrl
+        holder.title.text = mData!!.mPostResponses[position].title
+        holder.body.text = mData!!.mPostResponses[position].body
+        val index = Random().nextInt(mData!!.mPhotoResponses.size - 1)
+        val imageUrl = mData!!.mPhotoResponses[index].thumbnailUrl
         mRequestManager.load(imageUrl).into(holder.image)
         holder.body.setOnClickListener {
             mActivity.startActivity(
@@ -46,7 +46,7 @@ class PostAdapter(private val mRequestManager: RequestManager, private val mActi
     }
 
     override fun getItemCount(): Int {
-        return if (mData == null || mData!!.mPhotos == null) 0 else mData!!.mPosts.size
+        return if (mData == null || mData!!.mPhotoResponses == null) 0 else mData!!.mPostResponses.size
     }
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
