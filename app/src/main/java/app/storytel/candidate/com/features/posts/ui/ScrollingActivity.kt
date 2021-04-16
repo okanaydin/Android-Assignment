@@ -1,4 +1,4 @@
-package app.storytel.candidate.com
+package app.storytel.candidate.com.features.posts.ui
 
 import android.os.AsyncTask
 import android.os.Bundle
@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.storytel.candidate.com.features.posts.model.PostAndImages
+import app.storytel.candidate.com.R
+import app.storytel.candidate.com.data.remote.datasource.Photo
+import app.storytel.candidate.com.data.remote.datasource.Post
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import java.io.IOException
