@@ -52,13 +52,23 @@ dependencies {
     implementation(Dependencies.appCompat)
     implementation(Dependencies.androidMaterial)
     implementation(Dependencies.constraintLayout)
+    implementation(Dependencies.coreKtx)
+    implementation(Dependencies.coroutinesAndroid)
+    implementation(Dependencies.coroutinesCore)
     implementation(Dependencies.cardView)
     implementation(Dependencies.daggerHilt)
-    kapt(Dependencies.daggerHiltCompiler)
-    implementation(Dependencies.moshi)
-    kapt(Dependencies.moshiCodegen)
-    implementation(Dependencies.gson) // TODO #1 this will be removed, will use moshi instead.
     implementation(Dependencies.glide)
+    implementation(Dependencies.gson) // TODO #1 this will be removed, will use moshi instead.
+    implementation(Dependencies.liveDataKtx)
+    implementation(Dependencies.moshi)
+    implementation(Dependencies.okhttp3)
+    implementation(Dependencies.okhttp3Interceptor)
+    implementation(Dependencies.retrofit2)
+    implementation(Dependencies.retrofit2MoshiConvertor)
+    implementation(Dependencies.viewModelKtx)
+
+    kapt(Dependencies.daggerHiltCompiler)
+    kapt(Dependencies.moshiCodegen)
 
     testImplementation(Dependencies.jUnit)
     androidTestImplementation(Dependencies.jUnitExt)
