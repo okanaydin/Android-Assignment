@@ -1,4 +1,4 @@
-package app.storytel.candidate.com.data.remote.datasource
+package app.storytel.candidate.com.data.remote.datasource.model
 
 import com.squareup.moshi.Json
 

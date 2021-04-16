@@ -1,6 +1,6 @@
 package app.storytel.candidate.com.data.remote.api
 
-import app.storytel.candidate.com.data.remote.datasource.PhotoResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PhotoResponse
 import retrofit2.http.GET
 
 interface PhotoService {

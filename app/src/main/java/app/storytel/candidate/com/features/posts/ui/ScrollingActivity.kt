@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.storytel.candidate.com.features.posts.model.PostAndImages
 import app.storytel.candidate.com.R
-import app.storytel.candidate.com.data.remote.datasource.PhotoResponse
-import app.storytel.candidate.com.data.remote.datasource.PostResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PhotoResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PostResponse
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import java.io.IOException
