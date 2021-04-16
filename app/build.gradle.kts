@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -52,6 +53,8 @@ dependencies {
     implementation(Dependencies.androidMaterial)
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.cardView)
+    implementation(Dependencies.daggerHilt)
+    kapt(Dependencies.daggerHiltCompiler)
     implementation(Dependencies.moshi)
     kapt(Dependencies.moshiCodegen)
     implementation(Dependencies.gson) // TODO #1 this will be removed, will use moshi instead.
