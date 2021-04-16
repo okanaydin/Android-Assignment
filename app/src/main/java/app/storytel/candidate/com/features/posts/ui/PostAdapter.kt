@@ -1,4 +1,4 @@
-package app.storytel.candidate.com
+package app.storytel.candidate.com.features.posts.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import app.storytel.candidate.com.PostAdapter.PostViewHolder
+import app.storytel.candidate.com.features.posts.model.PostAndImages
+import app.storytel.candidate.com.R
+import app.storytel.candidate.com.features.posts.ui.PostAdapter.PostViewHolder
+import app.storytel.candidate.com.features.details.ui.DetailsActivity
 import com.bumptech.glide.RequestManager
 import java.util.Random
 

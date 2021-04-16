@@ -1,4 +1,4 @@
-package app.storytel.candidate.com
+package app.storytel.candidate.com.data.remote.datasource
 
 data class Photo(
     var albumId: Int = 0,
