@@ -16,7 +16,6 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         configureToolBar()
         // TODO display the selected post from ScrollingActivity. Use mImageView and mTextView for image and body text. Change the title to use the post title
         // TODO load top 3 comments from COMMENTS_URL into the 3 card views
-        // TODO COMMENTS_URL = "https://jsonplaceholder.typicode.com/posts/{id}/comments"
     }
 
     private fun configureToolBar() {
