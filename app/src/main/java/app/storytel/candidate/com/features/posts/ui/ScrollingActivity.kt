@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.storytel.candidate.com.features.posts.model.PostAndImages
 import app.storytel.candidate.com.R
-import app.storytel.candidate.com.data.remote.datasource.model.PhotoResponse
-import app.storytel.candidate.com.data.remote.datasource.model.PostResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PhotoModel
+import app.storytel.candidate.com.data.remote.datasource.model.PostModel
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import java.io.IOException
@@ -40,14 +40,14 @@ class ScrollingActivity : AppCompatActivity() {
         mRecyclerView.setAdapter(mPostAdapter)
         object : AsyncTask<Void?, Void?, PostAndImages>() {
             override fun doInBackground(vararg params: Void?): PostAndImages {
-                val posts = postResponses
-                val photos = photoResponses
+                val posts = postRespons
+                val photos = photoRespons
                 return PostAndImages(posts!!, photos!!)
             }
 
-            private val postResponses: List<PostResponse>?
+            private val postRespons: List<PostModel>?
                 private get() {
-                    var postResponses: List<PostResponse>? = null
+                    var postRespons: List<PostModel>? = null
                     var stream: InputStream? = null
                     var urlConnection: HttpURLConnection? = null
                     try {
@@ -62,8 +62,8 @@ class ScrollingActivity : AppCompatActivity() {
                         stream = urlConnection.inputStream
                         if (stream != null) {
                             result = readStream(stream)
-                            val array = Gson().fromJson(result, Array<PostResponse>::class.java)
-                            postResponses = Arrays.asList(*array)
+                            val array = Gson().fromJson(result, Array<PostModel>::class.java)
+                            postRespons = Arrays.asList(*array)
                         }
                     } catch (e: MalformedURLException) {
                         e.printStackTrace()
@@ -79,11 +79,11 @@ class ScrollingActivity : AppCompatActivity() {
                         }
                         urlConnection?.disconnect()
                     }
-                    return postResponses
+                    return postRespons
                 }
-            private val photoResponses: List<PhotoResponse>?
+            private val photoRespons: List<PhotoModel>?
                 private get() {
-                    var photoResponses: List<PhotoResponse>? = null
+                    var photoRespons: List<PhotoModel>? = null
                     var stream: InputStream? = null
                     var urlConnection: HttpURLConnection? = null
                     try {
@@ -98,8 +98,8 @@ class ScrollingActivity : AppCompatActivity() {
                         stream = urlConnection!!.inputStream
                         if (stream != null) {
                             result = readStream(stream)
-                            val array = Gson().fromJson(result, Array<PhotoResponse>::class.java)
-                            photoResponses = Arrays.asList(*array)
+                            val array = Gson().fromJson(result, Array<PhotoModel>::class.java)
+                            photoRespons = Arrays.asList(*array)
                         }
                     } catch (e: MalformedURLException) {
                         e.printStackTrace()
@@ -117,7 +117,7 @@ class ScrollingActivity : AppCompatActivity() {
                             urlConnection!!.disconnect()
                         }
                     }
-                    return photoResponses
+                    return photoRespons
                 }
 
             /**

@@ -1,9 +1,9 @@
 package app.storytel.candidate.com.features.posts.usecase
 
 import app.storytel.candidate.com.core.Resource
-import app.storytel.candidate.com.data.remote.datasource.model.PhotoResponse
-import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoResponse
-import app.storytel.candidate.com.data.remote.datasource.model.PostResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PhotoModel
+import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
+import app.storytel.candidate.com.data.remote.datasource.model.PostModel
 import app.storytel.candidate.com.features.posts.repository.PostRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -37,13 +37,13 @@ class PostListUseCase @Inject constructor(
 }
 
 private fun combinePostsAndPhotos(
-    postList: List<PostResponse>,
-    photoList: List<PhotoResponse>
-): List<PostAndPhotoResponse> {
+    postList: List<PostModel>,
+    photoList: List<PhotoModel>
+): List<PostAndPhotoModel> {
 
     return postList.map { postResponse ->
         val selectedPhoto = photoList.random()
-        PostAndPhotoResponse(
+        PostAndPhotoModel(
             post = postResponse,
             thumbnailUrl = selectedPhoto.thumbnailUrl,
             imageUrl = selectedPhoto.url

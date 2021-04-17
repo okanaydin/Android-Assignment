@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.storytel.candidate.com.core.LayoutViewState
 import app.storytel.candidate.com.core.Resource
-import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoResponse
+import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
 import app.storytel.candidate.com.features.posts.usecase.PostListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
@@ -17,7 +17,7 @@ class PostViewModel @Inject constructor(
     private val postListUseCase: PostListUseCase
 ) : ViewModel() {
 
-    private val postList = MutableLiveData<List<PostAndPhotoResponse>>()
+    private val postList = MutableLiveData<List<PostAndPhotoModel>>()
     private val layoutViewState = MutableLiveData<LayoutViewState>()
 
     init {

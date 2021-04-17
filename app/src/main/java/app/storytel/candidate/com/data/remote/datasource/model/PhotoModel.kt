@@ -2,7 +2,7 @@ package app.storytel.candidate.com.data.remote.datasource.model
 
 import com.squareup.moshi.Json
 
-data class PhotoResponse(
+data class PhotoModel(
     @Json(name = "albumId")
     var albumId: Int?,
     @Json(name = "id")
