@@ -9,6 +9,7 @@ object Dependencies {
         "com.google.android.material:material:${Versions.androidMaterialVersion}"
     const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompatVersion}"
     const val cardView = "androidx.cardview:cardview:${Versions.cardViewVersion}"
+    const val coil = "io.coil-kt:coil:${Versions.coilVersion}"
     const val constraintLayout =
         "androidx.constraintlayout:constraintlayout:${Versions.constraintLayoutVersion}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtxVersion}"
@@ -34,8 +35,8 @@ object Dependencies {
     const val okhttp3Interceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3Version}"
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2Version}"
-    const val retrofit2MoshiConvertor =
-        "com.squareup.retrofit2:converter-moshi:${Versions.retrofit2Version}"
+    const val retrofit2GsonConvertor =
+        "com.squareup.retrofit2:converter-gson:${Versions.retrofit2Version}"
     const val viewModelKtx =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKtxVersion}"
 }

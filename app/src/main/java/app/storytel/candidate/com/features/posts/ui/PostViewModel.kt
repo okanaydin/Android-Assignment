@@ -17,8 +17,8 @@ class PostViewModel @Inject constructor(
     private val postListUseCase: PostListUseCase
 ) : ViewModel() {
 
-    private val postList = MutableLiveData<List<PostAndPhotoModel>>()
-    private val layoutViewState = MutableLiveData<LayoutViewState>()
+    val postList = MutableLiveData<List<PostAndPhotoModel>>()
+    val layoutViewState = MutableLiveData<LayoutViewState>()
 
     init {
         getPostList()
@@ -29,7 +29,7 @@ class PostViewModel @Inject constructor(
             postListUseCase.getCombinedPostsAndPhotos().collect { state ->
                 when (state) {
                     is Resource.Success -> {
-                        postList.value = state.data!!
+                        postList.value = state.data
                     }
                     is Resource.Failed -> {
                         layoutViewState.value = LayoutViewState(state)

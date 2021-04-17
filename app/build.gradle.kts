@@ -51,6 +51,7 @@ dependencies {
 
     implementation(Dependencies.appCompat)
     implementation(Dependencies.androidMaterial)
+    implementation(Dependencies.coil)
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.coroutinesAndroid)
@@ -59,13 +60,13 @@ dependencies {
     implementation(Dependencies.daggerHilt)
     implementation(Dependencies.fragmentKtx)
     implementation(Dependencies.glide)
-    implementation(Dependencies.gson) // TODO #1 this will be removed, will use moshi instead.
+    implementation(Dependencies.gson)
     implementation(Dependencies.liveDataKtx)
     implementation(Dependencies.moshi)
     implementation(Dependencies.okhttp3)
     implementation(Dependencies.okhttp3Interceptor)
     implementation(Dependencies.retrofit2)
-    implementation(Dependencies.retrofit2MoshiConvertor)
+    implementation(Dependencies.retrofit2GsonConvertor)
     implementation(Dependencies.viewModelKtx)
 
     kapt(Dependencies.daggerHiltCompiler)

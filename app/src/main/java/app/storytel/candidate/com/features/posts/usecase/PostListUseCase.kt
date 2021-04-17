@@ -34,19 +34,19 @@ class PostListUseCase @Inject constructor(
         val photos = async { postRepository.getPhotos() }
         combinePostsAndPhotos(posts.await(), photos.await())
     }
-}
 
-private fun combinePostsAndPhotos(
-    postList: List<PostModel>,
-    photoList: List<PhotoModel>
-): List<PostAndPhotoModel> {
+    private fun combinePostsAndPhotos(
+        postList: List<PostModel>,
+        photoList: List<PhotoModel>
+    ): List<PostAndPhotoModel> {
 
-    return postList.map { postResponse ->
-        val selectedPhoto = photoList.random()
-        PostAndPhotoModel(
-            post = postResponse,
-            thumbnailUrl = selectedPhoto.thumbnailUrl,
-            imageUrl = selectedPhoto.url
-        )
+        return postList.map { postResponse ->
+            val selectedPhoto = photoList.random()
+            PostAndPhotoModel(
+                post = postResponse,
+                thumbnailUrl = selectedPhoto.thumbnailUrl,
+                imageUrl = selectedPhoto.url
+            )
+        }
     }
 }

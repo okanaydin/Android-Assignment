@@ -3,6 +3,7 @@ object Versions {
     const val androidMaterialVersion = "1.3.0"
     const val appCompatVersion = "1.2.0"
     const val cardViewVersion = "1.0.0"
+    const val coilVersion = "1.2.0"
     const val constraintLayoutVersion = "1.3.2"
     const val coroutinesVersion = "1.4.2"
     const val coreKtxVersion = "1.3.2"
