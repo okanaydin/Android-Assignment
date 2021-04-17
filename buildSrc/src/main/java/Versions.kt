@@ -19,6 +19,7 @@ object Versions {
     const val ktlintVersion = "0.41.0"
     const val liveDataKtxVersion = "2.3.1"
     const val moshiVersion = "1.12.0"
+    const val navigationVersion = "2.3.5"
     const val okhttp3Version = "5.0.0-alpha.2"
     const val retrofit2Version = "2.9.0"
     const val viewModelKtxVersion = "2.3.1"

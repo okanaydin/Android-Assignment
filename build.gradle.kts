@@ -10,9 +10,10 @@ buildscript {
     }
 
     dependencies {
+        classpath(ClassPaths.daggerHilt)
         classpath(ClassPaths.gradle)
         classpath(ClassPaths.kotlinGradlePlugin)
-        classpath(ClassPaths.daggerHilt)
+        classpath(ClassPaths.navigationSafeArgPlugin)
     }
 }
 
