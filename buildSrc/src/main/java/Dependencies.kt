@@ -31,6 +31,9 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.liveDataKtxVersion}"
     const val moshi = "com.squareup.moshi:moshi:${Versions.moshiVersion}"
     const val moshiCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshiVersion}"
+    const val navigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationVersion}"
+    const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigationVersion}"
     const val okhttp3 = "com.squareup.okhttp3:okhttp:${Versions.okhttp3Version}"
     const val okhttp3Interceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3Version}"

@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    id("androidx.navigation.safeargs")
     id("dagger.hilt.android.plugin")
 }
 
@@ -63,6 +64,8 @@ dependencies {
     implementation(Dependencies.gson)
     implementation(Dependencies.liveDataKtx)
     implementation(Dependencies.moshi)
+    implementation(Dependencies.navigationFragment)
+    implementation(Dependencies.navigationUi)
     implementation(Dependencies.okhttp3)
     implementation(Dependencies.okhttp3Interceptor)
     implementation(Dependencies.retrofit2)
