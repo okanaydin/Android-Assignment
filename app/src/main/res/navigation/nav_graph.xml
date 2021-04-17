@@ -3,12 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/postListFragment">
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="app.storytel.candidate.com.features.splash.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_postListFragment"
+            app:destination="@id/postListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <fragment
         android:id="@+id/postListFragment"
         android:name="app.storytel.candidate.com.features.posts.ui.PostListFragment"
-        android:label="Post List"
+        android:label="PostListFragment"
         tools:layout="@layout/fragment_post_list">
         <action
             android:id="@+id/action_postListFragment_to_postDetailFragment"
@@ -20,4 +33,5 @@
         android:name="app.storytel.candidate.com.features.details.ui.PostDetailFragment"
         android:label="PostDetailFragment"
         tools:layout="@layout/fragment_post_detail" />
+
 </navigation>
