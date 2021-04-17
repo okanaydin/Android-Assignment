@@ -1,145 +1,69 @@
 package app.storytel.candidate.com.features.posts.ui
 
-import android.os.AsyncTask
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import app.storytel.candidate.com.features.posts.model.PostAndImages
 import app.storytel.candidate.com.R
-import app.storytel.candidate.com.data.remote.datasource.Photo
-import app.storytel.candidate.com.data.remote.datasource.Post
-import com.bumptech.glide.Glide
-import com.google.gson.Gson
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.Reader
-import java.io.UnsupportedEncodingException
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.Arrays
-import javax.net.ssl.HttpsURLConnection
+import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
+import app.storytel.candidate.com.features.details.ui.DetailsActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScrollingActivity : AppCompatActivity() {
+
     lateinit var mRecyclerView: RecyclerView
-    var mPostAdapter: PostAdapter? = null
+
+    private val postViewModel: PostViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scrolling)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         mRecyclerView = findViewById(R.id.recycler_view)
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
+        postViewModel.layoutViewState.observe(this) { state ->
+            when {
+                state.isLoading() -> {
+                    // TODO implement loading case
+                }
+            }
+        }
+        postViewModel.postList.observe(this) { postAndPhotoList ->
+            createPostList(postAndPhotoList)
+        }
+    }
+
+    private fun createPostList(postList: List<PostAndPhotoModel>) {
+
+        val list = postList.toMutableList()
+
+        if (mRecyclerView.adapter == null) {
+            val adapter = PostAdapter(
+                list,
+                object : PostAdapter.PostItemClick {
+                    override fun onClick(postItem: PostAndPhotoModel) {
+                        // TODO change with navigation component
+                        startActivity(Intent(this@ScrollingActivity, DetailsActivity::class.java))
+                    }
+                }
+            )
+            mRecyclerView.adapter = adapter
+        } else {
+            (mRecyclerView.adapter as PostAdapter).updateList(list)
+        }
+
         val manager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mRecyclerView.setLayoutManager(manager)
-        mPostAdapter = PostAdapter(Glide.with(this), this)
-        mRecyclerView.setAdapter(mPostAdapter)
-        object : AsyncTask<Void?, Void?, PostAndImages>() {
-            override fun doInBackground(vararg params: Void?): PostAndImages {
-                val posts = posts
-                val photos = photos
-                return PostAndImages(posts!!, photos!!)
-            }
-
-            private val posts: List<Post>?
-                private get() {
-                    var posts: List<Post>? = null
-                    var stream: InputStream? = null
-                    var urlConnection: HttpURLConnection? = null
-                    try {
-                        var result: String? = null
-                        val url = URL(POSTS_URL)
-                        urlConnection = url.openConnection() as HttpURLConnection
-                        urlConnection.connect()
-                        val responseCode = urlConnection!!.responseCode
-                        if (responseCode != HttpsURLConnection.HTTP_OK) {
-                            throw IOException("HTTP error code: $responseCode")
-                        }
-                        stream = urlConnection.inputStream
-                        if (stream != null) {
-                            result = readStream(stream)
-                            val array = Gson().fromJson(result, Array<Post>::class.java)
-                            posts = Arrays.asList(*array)
-                        }
-                    } catch (e: MalformedURLException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    } finally {
-                        if (stream != null) {
-                            try {
-                                stream.close()
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                            }
-                        }
-                        urlConnection?.disconnect()
-                    }
-                    return posts
-                }
-            private val photos: List<Photo>?
-                private get() {
-                    var photos: List<Photo>? = null
-                    var stream: InputStream? = null
-                    var urlConnection: HttpURLConnection? = null
-                    try {
-                        var result: String? = null
-                        val url = URL(PHOTOS_URL)
-                        urlConnection = url.openConnection() as HttpURLConnection
-                        urlConnection!!.connect()
-                        val responseCode = urlConnection!!.responseCode
-                        if (responseCode != HttpsURLConnection.HTTP_OK) {
-                            throw IOException("HTTP error code: $responseCode")
-                        }
-                        stream = urlConnection!!.inputStream
-                        if (stream != null) {
-                            result = readStream(stream)
-                            val array = Gson().fromJson(result, Array<Photo>::class.java)
-                            photos = Arrays.asList(*array)
-                        }
-                    } catch (e: MalformedURLException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    } finally {
-                        if (stream != null) {
-                            try {
-                                stream!!.close()
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                            }
-                        }
-                        if (urlConnection != null) {
-                            urlConnection!!.disconnect()
-                        }
-                    }
-                    return photos
-                }
-
-            /**
-             * Converts the contents of an InputStream to a String.
-             */
-            @Throws(IOException::class, UnsupportedEncodingException::class)
-            fun readStream(stream: InputStream?): String {
-                var reader: Reader? = null
-                reader = InputStreamReader(stream, "UTF-8")
-                val rawBuffer = CharArray(256)
-                var readSize: Int
-                val buffer = StringBuffer()
-                while (reader.read(rawBuffer).also { readSize = it } != -1) {
-                    buffer.append(rawBuffer, 0, readSize)
-                }
-                return buffer.toString()
-            }
-
-            override fun onPostExecute(result: PostAndImages) {
-                mPostAdapter!!.setData(result)
-            }
-        }.execute()
+        mRecyclerView.layoutManager = manager
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -152,10 +76,5 @@ class ScrollingActivity : AppCompatActivity() {
         return if (id == R.id.action_settings) {
             true
         } else super.onOptionsItemSelected(item)
-    }
-
-    companion object {
-        private const val POSTS_URL = "https://jsonplaceholder.typicode.com/posts"
-        private const val PHOTOS_URL = "https://jsonplaceholder.typicode.com/photos"
     }
 }

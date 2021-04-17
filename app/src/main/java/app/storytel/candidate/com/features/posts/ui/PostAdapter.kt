@@ -1,63 +1,51 @@
 package app.storytel.candidate.com.features.posts.ui
 
-import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import app.storytel.candidate.com.features.posts.model.PostAndImages
-import app.storytel.candidate.com.R
-import app.storytel.candidate.com.features.posts.ui.PostAdapter.PostViewHolder
-import app.storytel.candidate.com.features.details.ui.DetailsActivity
-import com.bumptech.glide.RequestManager
-import java.util.Random
+import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
+import app.storytel.candidate.com.databinding.PostItemBinding
+import coil.load
 
-class PostAdapter(private val mRequestManager: RequestManager, private val mActivity: Activity) :
-    RecyclerView.Adapter<PostViewHolder>() {
-    private var mData: PostAndImages? = null
+class PostAdapter(
+    var postList: List<PostAndPhotoModel>,
+    var itemClick: PostItemClick
+) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+
+    interface PostItemClick {
+        fun onClick(postItem: PostAndPhotoModel)
+    }
+
+    fun updateList(postList: List<PostAndPhotoModel>) {
+        val diff = DiffUtil.calculateDiff(PostListDiffUtil(this.postList, postList))
+        this.postList = postList
+        diff.dispatchUpdatesTo(this)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        return PostViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.post_item, parent, false)
-        )
+        val view = PostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PostViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.title.text = mData!!.mPosts[position].title
-        holder.body.text = mData!!.mPosts[position].body
-        val index = Random().nextInt(mData!!.mPhotos.size - 1)
-        val imageUrl = mData!!.mPhotos[index].thumbnailUrl
-        mRequestManager.load(imageUrl).into(holder.image)
-        holder.body.setOnClickListener {
-            mActivity.startActivity(
-                Intent(
-                    mActivity,
-                    DetailsActivity::class.java
-                )
-            )
-        }
+        holder.bind(postList[position])
     }
 
-    fun setData(data: PostAndImages?) {
-        mData = data
-        notifyDataSetChanged()
-    }
+    override fun getItemCount(): Int = postList.size
 
-    override fun getItemCount(): Int {
-        return if (mData == null || mData!!.mPhotos == null) 0 else mData!!.mPosts.size
-    }
+    inner class PostViewHolder(private val binding: PostItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var title: TextView
-        var body: TextView
-        var image: ImageView
-
-        init {
-            title = itemView.findViewById(R.id.title)
-            body = itemView.findViewById(R.id.body)
-            image = itemView.findViewById(R.id.image)
+        fun bind(post: PostAndPhotoModel) {
+            with(binding) {
+                root.setOnClickListener { itemClick.onClick(post) }
+                post.let { postItem ->
+                    title.text = postItem.post?.title
+                    body.text = postItem.post?.body
+                    image.load(postItem.thumbnailUrl)
+                }
+            }
         }
     }
 }
