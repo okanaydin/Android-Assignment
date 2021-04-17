@@ -19,6 +19,7 @@ object Dependencies {
     const val daggerHilt = "com.google.dagger:hilt-android:${Versions.daggerHiltVersion}"
     const val daggerHiltCompiler = "com.google.dagger:hilt-compiler:${Versions.daggerHiltVersion}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
+    const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtxVersion}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
     const val gson = "com.google.code.gson:gson:${Versions.gsonVersion}"
     const val jUnit = "junit:junit:${Versions.junitVersion}"

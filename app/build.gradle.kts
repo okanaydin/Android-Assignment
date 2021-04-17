@@ -57,6 +57,7 @@ dependencies {
     implementation(Dependencies.coroutinesCore)
     implementation(Dependencies.cardView)
     implementation(Dependencies.daggerHilt)
+    implementation(Dependencies.fragmentKtx)
     implementation(Dependencies.glide)
     implementation(Dependencies.gson) // TODO #1 this will be removed, will use moshi instead.
     implementation(Dependencies.liveDataKtx)
