@@ -41,8 +41,8 @@ class PostAdapter(
             with(binding) {
                 root.setOnClickListener { itemClick.onClick(post) }
                 post.let { postItem ->
-                    title.text = postItem.post?.title
-                    body.text = postItem.post?.body
+                    title.text = postItem.postItem?.title
+                    body.text = postItem.postItem?.body
                     image.load(postItem.thumbnailUrl)
                 }
             }

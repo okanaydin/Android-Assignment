@@ -50,8 +50,8 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
                     list,
                     object : PostAdapter.PostItemClick {
                         override fun onClick(postItem: PostAndPhotoModel) {
-                            val direction =
-                                PostListFragmentDirections.actionPostListFragmentToPostDetailFragment()
+                            val direction = PostListFragmentDirections
+                                .actionPostListFragmentToPostDetailFragment(postItem)
                             findNavController().navigate(direction)
                         }
                     }

@@ -43,7 +43,7 @@ class PostListUseCase @Inject constructor(
         return postList.map { postResponse ->
             val selectedPhoto = photoList.random()
             PostAndPhotoModel(
-                post = postResponse,
+                postItem = postResponse,
                 thumbnailUrl = selectedPhoto.thumbnailUrl,
                 imageUrl = selectedPhoto.url
             )

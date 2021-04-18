@@ -32,6 +32,10 @@
         android:id="@+id/postDetailFragment"
         android:name="app.storytel.candidate.com.features.details.ui.PostDetailFragment"
         android:label="PostDetailFragment"
-        tools:layout="@layout/fragment_post_detail" />
+        tools:layout="@layout/fragment_post_detail">
+        <argument
+            android:name="post"
+            app:argType="app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel" />
+    </fragment>
 
 </navigation>

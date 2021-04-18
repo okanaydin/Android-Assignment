@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="32dp"
-                tool:text="this is the details" />
+                android:text="@string/comments"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/comment1"
