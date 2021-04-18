@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tool="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +24,7 @@
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backdrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -50,9 +50,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="24dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/details"
@@ -60,98 +59,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="32dp"
-                tool:text="this is the details" />
+                android:text="@string/comments" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/comment1"
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/card_margin">
-
-                <LinearLayout
-                    style="@style/Widget.CardContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/title1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        tool:text="Comment title1" />
-
-                    <TextView
-                        android:id="@+id/description1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tool:text="Comment text1" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/comment2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginLeft="@dimen/card_margin"
-                android:layout_marginRight="@dimen/card_margin">
-
-                <LinearLayout
-                    style="@style/Widget.CardContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/title2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        tool:text="Comment title2" />
-
-                    <TextView
-                        android:id="@+id/description2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tool:text="Comment text2" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/comment3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginLeft="@dimen/card_margin"
-                android:layout_marginRight="@dimen/card_margin">
-
-                <LinearLayout
-                    style="@style/Widget.CardContent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/title3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                        tool:text="Comment title3" />
-
-                    <TextView
-                        android:id="@+id/description3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tool:text="Comment text3" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
+                android:layout_height="match_parent"
+                android:id="@+id/recyclerViewComments"
+                tools:listitem="@layout/item_comment"
+                tools:itemCount="2"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context=".features.posts.ui.PostListFragment"
+                tools:showIn="@layout/fragment_post_list" />
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

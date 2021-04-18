@@ -1,6 +1,7 @@
 package app.storytel.candidate.com.data.remote.datasource.posts
 
 import app.storytel.candidate.com.data.remote.api.PostService
+import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.data.remote.datasource.model.PostModel
 import javax.inject.Inject
 
@@ -13,4 +14,6 @@ class PostDataSourceImp @Inject constructor(
 ) : PostDataSource {
 
     override suspend fun getPosts(): List<PostModel> = postService.fetchPosts()
+
+    override suspend fun getComments(id: Int): List<CommentModel> = postService.fetchComments(id)
 }
