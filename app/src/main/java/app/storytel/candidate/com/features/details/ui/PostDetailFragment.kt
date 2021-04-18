@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.databinding.FragmentPostDetailBinding
 import app.storytel.candidate.com.features.base.BaseFragment
@@ -15,12 +16,14 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     private val commentsViewModel: CommentsViewModel by viewModels()
     private val postArg by navArgs<PostDetailFragmentArgs>()
+    lateinit var viewState: PostDetailViewState
 
     override fun getViewBinding(): FragmentPostDetailBinding =
         FragmentPostDetailBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewState = PostDetailViewState(postArg.post)
         configureToolBar()
         subscribeUi()
     }
@@ -43,19 +46,20 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
     }
 
     private fun createCommentList(commentList: List<CommentModel>) {
-        with(binding) {
-            title1.text = commentList[0].name
-            description1.text = commentList[0].body
-            title2.text = commentList[1].name
-            description2.text = commentList[1].body
-            title3.text = commentList[2].name
-            description3.text = commentList[2].body
-
-            backdrop.load(postArg.post.imageUrl)
+        binding.recyclerViewComments.apply {
+            adapter = CommentsAdapter(commentList)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
         }
     }
 
     private fun configureToolBar() {
-        binding.toolbar.title = postArg.post.postItem?.title
+        with(binding) {
+            backdrop.load(viewState.getImageUrl())
+            toolbar.title = viewState.getPostTitle()
+        }
     }
 }

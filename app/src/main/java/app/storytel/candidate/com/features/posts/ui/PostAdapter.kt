@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
-import app.storytel.candidate.com.databinding.PostItemBinding
+import app.storytel.candidate.com.databinding.ItemPostBinding
 import coil.load
 
 class PostAdapter(
@@ -24,7 +24,7 @@ class PostAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-        val view = PostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostViewHolder(view)
     }
 
@@ -34,7 +34,7 @@ class PostAdapter(
 
     override fun getItemCount(): Int = postList.size
 
-    inner class PostViewHolder(private val binding: PostItemBinding) :
+    inner class PostViewHolder(private val binding: ItemPostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: PostAndPhotoModel) {

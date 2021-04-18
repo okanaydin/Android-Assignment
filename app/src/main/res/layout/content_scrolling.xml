@@ -5,7 +5,7 @@
     android:id="@+id/recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:listitem="@layout/post_item"
+    tools:listitem="@layout/item_post"
     tools:itemCount="5"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".features.posts.ui.PostListFragment"

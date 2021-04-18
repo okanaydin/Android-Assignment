@@ -1,0 +1,11 @@
+package app.storytel.candidate.com.features.details.ui
+
+import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
+import java.util.Locale
+
+data class PostDetailViewState(var postDetail: PostAndPhotoModel?) {
+
+    fun getImageUrl() = postDetail?.imageUrl
+
+    fun getPostTitle() = postDetail?.postItem?.title?.capitalize(Locale.ROOT) ?: "Unknown post"
+}
