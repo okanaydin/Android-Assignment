@@ -5,9 +5,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import app.storytel.candidate.com.R
 import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
 import app.storytel.candidate.com.databinding.FragmentPostListBinding
@@ -24,45 +25,78 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        configureLayoutState()
         configureToolBar()
-        subscribeUi()
+        configureUi()
+        initViewModel()
     }
 
-    private fun subscribeUi() {
+    private fun configureLayoutState() {
         postViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
-            when {
-                state.isLoading() -> {
-                    // TODO implement loading case
+            with(binding) {
+                when {
+                    state.isLoading() -> {
+                        contentLoading.progressBar.isVisible = true
+                        recyclerViewPostList.isVisible = false
+                        contentFailed.layout.isVisible = false
+                    }
+                    state.isSuccess() -> {
+                        contentLoading.progressBar.isVisible = false
+                        recyclerViewPostList.isVisible = true
+                        contentFailed.layout.isVisible = false
+                    }
+                    state.isFailed() -> {
+                        contentLoading.progressBar.isVisible = false
+                        recyclerViewPostList.isVisible = false
+                        contentFailed.layout.isVisible = true
+                    }
                 }
             }
         }
+    }
+
+    private fun configureUi() {
+        with(binding) {
+            swipeRefreshLayout.setOnRefreshListener(onRefreshListener())
+            contentFailed.buttonTryAgain.setOnClickListener {
+                postViewModel.getPostList()
+            }
+        }
+    }
+
+    private fun onRefreshListener(): SwipeRefreshLayout.OnRefreshListener {
+        return SwipeRefreshLayout.OnRefreshListener {
+            postViewModel.getPostList()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun initViewModel() {
         postViewModel.postList.observe(viewLifecycleOwner) { postAndPhotoList ->
-            createPostList(postAndPhotoList)
+            checkPostListAdapter(postAndPhotoList)
+        }
+    }
+
+    private fun checkPostListAdapter(postList: List<PostAndPhotoModel>) {
+        if (binding.recyclerViewPostList.adapter == null) {
+            createPostList(postList)
+        } else {
+            (binding.recyclerViewPostList.adapter as PostAdapter).updateList(postList)
         }
     }
 
     private fun createPostList(postList: List<PostAndPhotoModel>) {
-
-        val list = postList.toMutableList()
-        with(binding.content) {
-            if (recyclerView.adapter == null) {
-                val adapter = PostAdapter(
-                    list,
-                    object : PostAdapter.PostItemClick {
-                        override fun onClick(postItem: PostAndPhotoModel) {
-                            val direction = PostListFragmentDirections
-                                .actionPostListFragmentToPostDetailFragment(postItem)
-                            findNavController().navigate(direction)
-                        }
+        binding.recyclerViewPostList.apply {
+            adapter = PostAdapter(
+                postList,
+                object : PostAdapter.PostItemClick {
+                    override fun onClick(postItem: PostAndPhotoModel) {
+                        val direction = PostListFragmentDirections
+                            .actionPostListFragmentToPostDetailFragment(postItem)
+                        findNavController().navigate(direction)
                     }
-                )
-                recyclerView.adapter = adapter
-            } else {
-                (recyclerView.adapter as PostAdapter).updateList(list)
-            }
-
-            val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            recyclerView.layoutManager = manager
+                }
+            )
         }
     }
 

@@ -6,5 +6,5 @@ class LayoutViewState(private val resource: Resource<*>) {
 
     fun isSuccess() = resource is Resource.Success
 
-    fun isFailed() = if (resource is Resource.Failed) resource.message else "Please try again later"
+    fun isFailed() = resource is Resource.Failed
 }

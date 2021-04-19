@@ -22,5 +22,6 @@ object Versions {
     const val navigationVersion = "2.3.5"
     const val okhttp3Version = "5.0.0-alpha.2"
     const val retrofit2Version = "2.9.0"
+    const val swipeRefreshLayoutVersion = "1.1.0"
     const val viewModelKtxVersion = "2.3.1"
 }

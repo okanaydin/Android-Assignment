@@ -35,12 +35,19 @@ object RemoteDataModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit =
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_API_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(gsonConverterFactory)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideGsonConverterFactory() = GsonConverterFactory.create()
 
     @Provides
     @Singleton

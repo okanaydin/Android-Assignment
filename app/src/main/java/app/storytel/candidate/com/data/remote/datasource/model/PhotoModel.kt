@@ -4,13 +4,13 @@ import com.squareup.moshi.Json
 
 data class PhotoModel(
     @Json(name = "albumId")
-    var albumId: Int?,
+    var albumId: Int,
     @Json(name = "id")
-    var id: Int?,
+    var id: Int,
     @Json(name = "title")
-    var title: String?,
+    var title: String,
     @Json(name = "url")
-    var url: String?,
+    var url: String,
     @Json(name = "thumbnailUrl")
-    var thumbnailUrl: String?
+    var thumbnailUrl: String
 )
