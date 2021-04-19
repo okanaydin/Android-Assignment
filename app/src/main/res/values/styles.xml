@@ -24,4 +24,10 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Widget.CircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="indicatorColor">@color/colorPrimary</item>
+        <item name="trackThickness">24dp</item>
+        <item name="android:indeterminate">true</item>
+    </style>
+
 </resources>

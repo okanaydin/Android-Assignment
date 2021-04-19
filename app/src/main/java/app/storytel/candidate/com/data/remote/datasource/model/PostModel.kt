@@ -7,11 +7,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class PostModel(
     @Json(name = "userId")
-    var userId: Int?,
+    var userId: Int,
     @Json(name = "id")
-    var id: Int?,
+    var id: Int,
     @Json(name = "title")
-    var title: String?,
+    var title: String,
     @Json(name = "body")
-    var body: String?
+    var body: String
 ) : Parcelable

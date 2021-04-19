@@ -27,16 +27,9 @@ class PostViewModel @Inject constructor(
     fun getPostList() {
         viewModelScope.launch {
             postListUseCase.getCombinedPostsAndPhotos().collect { state ->
-                when (state) {
-                    is Resource.Success -> {
-                        postList.value = state.data
-                    }
-                    is Resource.Failed -> {
-                        layoutViewState.value = LayoutViewState(state)
-                    }
-                    is Resource.Loading -> {
-                        layoutViewState.value = LayoutViewState(state)
-                    }
+                layoutViewState.value = LayoutViewState(state)
+                if (state is Resource.Success) {
+                    postList.value = state.data
                 }
             }
         }

@@ -2,9 +2,9 @@ package app.storytel.candidate.com.features.details.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.databinding.FragmentPostDetailBinding
 import app.storytel.candidate.com.features.base.BaseFragment
@@ -24,36 +24,54 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewState = PostDetailViewState(postArg.post)
+        configureLayoutState()
         configureToolBar()
-        subscribeUi()
+        configureUi()
+        initViewModel()
     }
 
-    private fun subscribeUi() {
+    private fun configureLayoutState() {
         commentsViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
-            when {
-                state.isLoading() -> {
-                    // TODO implement loading case
+            with(binding) {
+                when {
+                    state.isLoading() -> {
+                        contentLoading.progressBar.isVisible = true
+                        recyclerViewComments.isVisible = false
+                        contentFailed.layout.isVisible = false
+                    }
+                    state.isSuccess() -> {
+                        contentLoading.progressBar.isVisible = false
+                        recyclerViewComments.isVisible = true
+                        contentFailed.layout.isVisible = false
+                    }
+                    state.isFailed() -> {
+                        contentLoading.progressBar.isVisible = false
+                        recyclerViewComments.isVisible = false
+                        contentFailed.layout.isVisible = true
+                    }
                 }
             }
         }
-        val postId = postArg.post.postItem?.id
-        if (postId != null) {
-            commentsViewModel.getCommentList(postId)
-        }
-        commentsViewModel.commentList.observe(viewLifecycleOwner) { commentList ->
-            createCommentList(commentList)
+    }
+
+    private fun configureUi() {
+        with(binding) {
+            contentFailed.buttonTryAgain.setOnClickListener {
+                commentsViewModel.getCommentList(viewState.getPostId())
+                configureToolBar()
+            }
         }
     }
 
-    private fun createCommentList(commentList: List<CommentModel>) {
-        binding.recyclerViewComments.apply {
-            adapter = CommentsAdapter(commentList)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false
-            )
+    private fun initViewModel() {
+        commentsViewModel.commentList.observe(viewLifecycleOwner) { commentList ->
+            createCommentList(commentList)
         }
+        commentsViewModel.getCommentList(viewState.getPostId())
+    }
+
+    private fun createCommentList(commentList: List<CommentModel>) {
+        binding.recyclerViewComments.adapter = CommentsAdapter(commentList)
     }
 
     private fun configureToolBar() {

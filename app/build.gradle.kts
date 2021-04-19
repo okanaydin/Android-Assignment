@@ -71,6 +71,7 @@ dependencies {
     implementation(Dependencies.okhttp3Interceptor)
     implementation(Dependencies.retrofit2)
     implementation(Dependencies.retrofit2GsonConvertor)
+    implementation(Dependencies.swipeRefreshLayout)
     implementation(Dependencies.viewModelKtx)
 
     kapt(Dependencies.daggerHiltCompiler)
