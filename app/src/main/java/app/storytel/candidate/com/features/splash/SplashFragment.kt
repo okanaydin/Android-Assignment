@@ -22,11 +22,10 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     private fun startViewAnimation() {
 
         val slideAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        binding.imageViewAppIcon.startAnimation(slideAnimation)
 
         slideAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {
-                binding.imageViewAppIcon.startAnimation(slideAnimation)
-            }
+            override fun onAnimationStart(animation: Animation?) = Unit
 
             override fun onAnimationEnd(animation: Animation?) {
                 navigateToPostListFragment()

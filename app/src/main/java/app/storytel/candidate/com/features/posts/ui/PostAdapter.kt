@@ -2,44 +2,40 @@ package app.storytel.candidate.com.features.posts.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
 import app.storytel.candidate.com.databinding.ItemPostBinding
 import coil.load
+import javax.inject.Inject
 
-class PostAdapter(
-    var postList: List<PostAndPhotoModel>,
-    var itemClick: PostItemClick
-) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+/**
+ * ListAdapter is a convenience wrapper around AsyncListDiffer that implements
+ * Adapter common default behavior for item access and counting.
+ * ref: https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
+ */
+class PostAdapter @Inject constructor() :
+    ListAdapter<PostAndPhotoModel, PostAdapter.PostViewHolder>(PostListDiffUtil()) {
 
-    interface PostItemClick {
-        fun onClick(postItem: PostAndPhotoModel)
-    }
+    var postItemClickListener: ((postItem: PostAndPhotoModel) -> Unit)? = null
 
-    fun updateList(postList: List<PostAndPhotoModel>) {
-        val diff = DiffUtil.calculateDiff(PostListDiffUtil(this.postList, postList))
-        this.postList = postList
-        diff.dispatchUpdatesTo(this)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.PostViewHolder {
         val view = ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(view)
+        return PostViewHolder(view, postItemClickListener)
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(postList[position])
+    override fun onBindViewHolder(holder: PostAdapter.PostViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = postList.size
-
-    inner class PostViewHolder(private val binding: ItemPostBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class PostViewHolder(
+        private val binding: ItemPostBinding,
+        private val postItemClickListener: ((postItem: PostAndPhotoModel) -> Unit)?
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: PostAndPhotoModel) {
             with(binding) {
-                root.setOnClickListener { itemClick.onClick(post) }
+                root.setOnClickListener { postItemClickListener?.invoke(post) }
                 post.let { postItem ->
                     textViewPostTitle.text = postItem.postItem.title
                     textViewPostBody.text = postItem.postItem.body

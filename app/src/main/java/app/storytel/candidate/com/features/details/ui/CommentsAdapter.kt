@@ -2,23 +2,32 @@ package app.storytel.candidate.com.features.details.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.databinding.ItemCommentBinding
+import javax.inject.Inject
 
-class CommentsAdapter(var commentList: List<CommentModel>) :
-    RecyclerView.Adapter<CommentsAdapter.CommentViewHolder>() {
+/**
+ * ListAdapter is a convenience wrapper around AsyncListDiffer that implements
+ * Adapter common default behavior for item access and counting.
+ * ref: https://developer.android.com/reference/androidx/recyclerview/widget/ListAdapter
+ */
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
+class CommentsAdapter @Inject constructor() :
+    ListAdapter<CommentModel, CommentsAdapter.CommentViewHolder>(CommentListDiffUtil()) {
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CommentsAdapter.CommentViewHolder {
         val view = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CommentViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.bind(commentList[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = commentList.size
 
     inner class CommentViewHolder(private val binding: ItemCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
