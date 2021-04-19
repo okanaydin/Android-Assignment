@@ -44,11 +44,11 @@
             android:id="@+id/recyclerViewPostList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginTop="16dp"
-            tools:listitem="@layout/item_post"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="5"
+            tools:listitem="@layout/item_post"
             tools:showIn="@layout/fragment_post_list" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -58,7 +58,7 @@
 
     <include
         android:id="@+id/contentFailed"
-        android:visibility="gone"
-        layout="@layout/content_failed" />
+        layout="@layout/content_failed"
+        android:visibility="gone" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

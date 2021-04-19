@@ -76,7 +76,7 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     private fun configureToolBar() {
         with(binding) {
-            backdrop.load(viewState.getImageUrl())
+            imageViewBanner.load(viewState.getImageUrl())
             toolbar.title = viewState.getPostTitle()
         }
     }

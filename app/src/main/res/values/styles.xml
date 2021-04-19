@@ -17,17 +17,56 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Widget.CardContent" parent="android:Widget">
-        <item name="android:paddingLeft">16dp</item>
-        <item name="android:paddingRight">16dp</item>
-        <item name="android:paddingTop">24dp</item>
-        <item name="android:paddingBottom">24dp</item>
-        <item name="android:orientation">vertical</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="android:layout_marginTop">@dimen/card_margin_top</item>
+        <item name="android:layout_marginStart">@dimen/card_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/card_margin_end</item>
     </style>
 
     <style name="Widget.CircularProgressIndicator" parent="Widget.MaterialComponents.CircularProgressIndicator">
         <item name="indicatorColor">@color/colorPrimary</item>
         <item name="trackThickness">24dp</item>
         <item name="android:indeterminate">true</item>
+    </style>
+
+    <style name="Widget.Text" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.Text.Title" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/text_margin_start</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/proxima_nova_soft_semibold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/text_title_size</item>
+    </style>
+
+    <style name="Widget.Text.Title.Error" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginTop">@dimen/text_error_margin_top</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/proxima_nova_soft_semibold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/text_error_title_size</item>
+    </style>
+
+    <style name="Widget.Text.Body" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginStart">@dimen/text_margin_start</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">@dimen/text_body_size</item>
+        <item name="fontFamily">@font/proxima_nova_soft_regular</item>
+        <item name="android:maxLines">3</item>
     </style>
 
 </resources>
