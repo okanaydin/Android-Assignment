@@ -62,7 +62,6 @@ dependencies {
     implementation(Dependencies.daggerHilt)
     implementation(Dependencies.fragmentKtx)
     implementation(Dependencies.glide)
-    implementation(Dependencies.gson)
     implementation(Dependencies.liveDataKtx)
     implementation(Dependencies.moshi)
     implementation(Dependencies.navigationFragment)
@@ -70,7 +69,7 @@ dependencies {
     implementation(Dependencies.okhttp3)
     implementation(Dependencies.okhttp3Interceptor)
     implementation(Dependencies.retrofit2)
-    implementation(Dependencies.retrofit2GsonConvertor)
+    implementation(Dependencies.retrofit2MoshiConvertor)
     implementation(Dependencies.swipeRefreshLayout)
     implementation(Dependencies.viewModelKtx)
 

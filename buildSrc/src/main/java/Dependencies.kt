@@ -22,7 +22,6 @@ object Dependencies {
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espressoVersion}"
     const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtxVersion}"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glideVersion}"
-    const val gson = "com.google.code.gson:gson:${Versions.gsonVersion}"
     const val jUnit = "junit:junit:${Versions.junitVersion}"
     const val jUnitExt = "androidx.test.ext:junit:${Versions.junitExtensionsVersion}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlinVersion}"
@@ -38,8 +37,8 @@ object Dependencies {
     const val okhttp3Interceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3Version}"
     const val retrofit2 = "com.squareup.retrofit2:retrofit:${Versions.retrofit2Version}"
-    const val retrofit2GsonConvertor =
-        "com.squareup.retrofit2:converter-gson:${Versions.retrofit2Version}"
+    const val retrofit2MoshiConvertor =
+        "com.squareup.retrofit2:converter-moshi:${Versions.retrofit2MoshiConvertorVersion}"
     const val swipeRefreshLayout =
         "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeRefreshLayoutVersion}"
     const val viewModelKtx =
