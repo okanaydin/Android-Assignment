@@ -1,5 +1,6 @@
 package app.storytel.candidate.com.features.posts.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,11 @@ class PostViewModel @Inject constructor(
     private val postListUseCase: PostListUseCase
 ) : ViewModel() {
 
-    val postList = MutableLiveData<List<PostAndPhotoModel>>()
-    val layoutViewState = MutableLiveData<LayoutViewState>()
+    private val _postList = MutableLiveData<List<PostAndPhotoModel>>()
+    val postList: LiveData<List<PostAndPhotoModel>> = _postList
+
+    private val _layoutViewState = MutableLiveData<LayoutViewState>()
+    val layoutViewState: LiveData<LayoutViewState> = _layoutViewState
 
     init {
         getPostList()
@@ -27,9 +31,9 @@ class PostViewModel @Inject constructor(
     fun getPostList() {
         viewModelScope.launch {
             postListUseCase.getCombinedPostsAndPhotos().collect { state ->
-                layoutViewState.value = LayoutViewState(state)
+                _layoutViewState.value = LayoutViewState(state)
                 if (state is Resource.Success) {
-                    postList.value = state.data
+                    _postList.value = state.data
                 }
             }
         }
