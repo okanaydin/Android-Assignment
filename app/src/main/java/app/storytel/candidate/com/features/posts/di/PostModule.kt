@@ -2,10 +2,10 @@ package app.storytel.candidate.com.features.posts.di
 
 import app.storytel.candidate.com.data.remote.api.PhotoService
 import app.storytel.candidate.com.data.remote.api.PostService
-import app.storytel.candidate.com.data.remote.datasource.photos.PhotoDataSource
-import app.storytel.candidate.com.data.remote.datasource.photos.PhotoDataSourceImp
-import app.storytel.candidate.com.data.remote.datasource.posts.PostDataSource
-import app.storytel.candidate.com.data.remote.datasource.posts.PostDataSourceImp
+import app.storytel.candidate.com.data.remote.datasource.photos.PhotoRemoteDataSource
+import app.storytel.candidate.com.data.remote.datasource.photos.PhotoRemoteDataSourceImp
+import app.storytel.candidate.com.data.remote.datasource.posts.PostRemoteDataSource
+import app.storytel.candidate.com.data.remote.datasource.posts.PostRemoteDataSourceImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,13 +28,13 @@ object PostModule {
      */
     @Provides
     @Singleton
-    fun providePostDataSource(postService: PostService): PostDataSource {
-        return PostDataSourceImp(postService)
+    fun providePostDataSource(postService: PostService): PostRemoteDataSource {
+        return PostRemoteDataSourceImp(postService)
     }
 
     @Provides
     @Singleton
-    fun providePhotoDataSource(photoService: PhotoService): PhotoDataSource {
-        return PhotoDataSourceImp(photoService)
+    fun providePhotoDataSource(photoService: PhotoService): PhotoRemoteDataSource {
+        return PhotoRemoteDataSourceImp(photoService)
     }
 }
