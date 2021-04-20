@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Post List</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_details">Details</string>
     <string name="comments">Comments</string>
     <string name="whoops">Whoops!</string>

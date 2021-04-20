@@ -5,7 +5,6 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.databinding.FragmentPostDetailBinding
 import app.storytel.candidate.com.features.base.BaseFragment
 import coil.load
@@ -16,7 +15,8 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     private val commentsViewModel: CommentsViewModel by viewModels()
     private val postArg by navArgs<PostDetailFragmentArgs>()
-    lateinit var viewState: PostDetailViewState
+    private val commentAdapter = CommentsAdapter()
+    private lateinit var viewState: PostDetailViewState
 
     override fun getViewBinding(): FragmentPostDetailBinding =
         FragmentPostDetailBinding.inflate(layoutInflater)
@@ -27,29 +27,20 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         configureLayoutState()
         configureToolBar()
         configureUi()
+        initRecyclerView()
         initViewModel()
+    }
+
+    private fun initRecyclerView() {
+        binding.recyclerViewComments.adapter = commentAdapter
     }
 
     private fun configureLayoutState() {
         commentsViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
             with(binding) {
-                when {
-                    state.isLoading() -> {
-                        contentLoading.progressBar.isVisible = true
-                        recyclerViewComments.isVisible = false
-                        contentFailed.layout.isVisible = false
-                    }
-                    state.isSuccess() -> {
-                        contentLoading.progressBar.isVisible = false
-                        recyclerViewComments.isVisible = true
-                        contentFailed.layout.isVisible = false
-                    }
-                    state.isFailed() -> {
-                        contentLoading.progressBar.isVisible = false
-                        recyclerViewComments.isVisible = false
-                        contentFailed.layout.isVisible = true
-                    }
-                }
+                contentLoading.progressBar.isVisible = state.isLoading()
+                recyclerViewComments.isVisible = state.isSuccess()
+                contentFailed.layout.isVisible = state.isFailed()
             }
         }
     }
@@ -65,13 +56,9 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     private fun initViewModel() {
         commentsViewModel.commentList.observe(viewLifecycleOwner) { commentList ->
-            createCommentList(commentList)
+            commentAdapter.submitList(commentList)
         }
         commentsViewModel.getCommentList(viewState.getPostId())
-    }
-
-    private fun createCommentList(commentList: List<CommentModel>) {
-        binding.recyclerViewComments.adapter = CommentsAdapter(commentList)
     }
 
     private fun configureToolBar() {

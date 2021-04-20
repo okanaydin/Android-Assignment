@@ -1,5 +1,6 @@
 package app.storytel.candidate.com.features.details.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,15 +18,18 @@ class CommentsViewModel @Inject constructor(
     private val commentUseCase: CommentUseCase
 ) : ViewModel() {
 
-    val commentList = MutableLiveData<List<CommentModel>>()
-    val layoutViewState = MutableLiveData<LayoutViewState>()
+    private val _commentList = MutableLiveData<List<CommentModel>>()
+    val commentList: LiveData<List<CommentModel>> = _commentList
+
+    private val _layoutViewState = MutableLiveData<LayoutViewState>()
+    val layoutViewState: LiveData<LayoutViewState> = _layoutViewState
 
     fun getCommentList(id: Int) {
         viewModelScope.launch {
             commentUseCase.getComments(id).collect { state ->
-                layoutViewState.value = LayoutViewState(state)
+                _layoutViewState.value = LayoutViewState(state)
                 if (state is Resource.Success) {
-                    commentList.value = state.data
+                    _commentList.value = state.data
                 }
             }
         }

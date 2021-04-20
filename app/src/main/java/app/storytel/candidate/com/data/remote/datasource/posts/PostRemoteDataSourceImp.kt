@@ -9,9 +9,9 @@ import javax.inject.Inject
  * you do not have to create a new instance of PostService
  * use @Inject in the constructor to have only one instance
  */
-class PostDataSourceImp @Inject constructor(
+class PostRemoteDataSourceImp @Inject constructor(
     private val postService: PostService
-) : PostDataSource {
+) : PostRemoteDataSource {
 
     override suspend fun getPosts(): List<PostModel> = postService.fetchPosts()
 

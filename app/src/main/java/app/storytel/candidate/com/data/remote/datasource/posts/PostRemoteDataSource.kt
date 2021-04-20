@@ -3,7 +3,7 @@ package app.storytel.candidate.com.data.remote.datasource.posts
 import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
 import app.storytel.candidate.com.data.remote.datasource.model.PostModel
 
-interface PostDataSource {
+interface PostRemoteDataSource {
 
     suspend fun getPosts(): List<PostModel>
 

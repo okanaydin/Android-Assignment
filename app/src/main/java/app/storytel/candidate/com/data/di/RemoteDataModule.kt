@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
@@ -37,17 +37,17 @@ object RemoteDataModule {
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        moshiConverterFactory: MoshiConverterFactory
     ): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_API_URL)
-            .addConverterFactory(gsonConverterFactory)
+            .addConverterFactory(moshiConverterFactory)
             .build()
 
     @Provides
     @Singleton
-    fun provideGsonConverterFactory() = GsonConverterFactory.create()
+    fun provideMoshiConverterFactory() = MoshiConverterFactory.create()
 
     @Provides
     @Singleton

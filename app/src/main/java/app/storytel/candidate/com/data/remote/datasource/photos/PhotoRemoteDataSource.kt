@@ -2,7 +2,7 @@ package app.storytel.candidate.com.data.remote.datasource.photos
 
 import app.storytel.candidate.com.data.remote.datasource.model.PhotoModel
 
-interface PhotoDataSource {
+interface PhotoRemoteDataSource {
 
     suspend fun getPhotos(): List<PhotoModel>
 }
