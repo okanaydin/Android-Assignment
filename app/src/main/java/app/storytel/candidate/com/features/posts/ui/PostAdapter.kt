@@ -17,6 +17,8 @@ import javax.inject.Inject
 class PostAdapter @Inject constructor() :
     ListAdapter<PostAndPhotoModel, PostAdapter.PostViewHolder>(PostListDiffUtil()) {
 
+    private lateinit var viewState: PostViewState
+
     var postItemClickListener: ((postItem: PostAndPhotoModel) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.PostViewHolder {
@@ -34,13 +36,12 @@ class PostAdapter @Inject constructor() :
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(post: PostAndPhotoModel) {
+            viewState = PostViewState(post)
             with(binding) {
                 root.setOnClickListener { postItemClickListener?.invoke(post) }
-                post.let { postItem ->
-                    textViewPostTitle.text = postItem.postItem.title
-                    textViewPostBody.text = postItem.postItem.body
-                    imageViewPostItem.load(postItem.thumbnailUrl)
-                }
+                textViewPostTitle.text = viewState.getPostTitle()
+                textViewPostBody.text = viewState.getPostBody()
+                imageViewPostItem.load(viewState.getImageUrl())
             }
         }
     }

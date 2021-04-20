@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @JsonClass(generateAdapter = true)
 data class PostAndPhotoModel(
-    val postItem: PostModel,
-    val thumbnailUrl: String,
-    val imageUrl: String
+    val postItem: PostModel?,
+    val thumbnailUrl: String?,
+    val imageUrl: String?
 ) : Parcelable
