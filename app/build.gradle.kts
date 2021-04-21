@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
+    id("kotlin-android")
+    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs")
     id("dagger.hilt.android.plugin")
@@ -61,7 +61,6 @@ dependencies {
     implementation(Dependencies.cardView)
     implementation(Dependencies.daggerHilt)
     implementation(Dependencies.fragmentKtx)
-    implementation(Dependencies.glide)
     implementation(Dependencies.liveDataKtx)
     implementation(Dependencies.moshi)
     implementation(Dependencies.navigationFragment)

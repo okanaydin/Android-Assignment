@@ -10,7 +10,6 @@ object Versions {
     const val daggerHiltVersion = "2.33-beta"
     const val espressoVersion = "3.3.0"
     const val fragmentKtxVersion = "1.3.2"
-    const val glideVersion = "4.12.0"
     const val gradleVersion = "4.1.3"
     const val junitExtensionsVersion = "1.1.2"
     const val junitVersion = "4.13.2"

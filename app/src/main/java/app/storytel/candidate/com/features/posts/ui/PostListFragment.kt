@@ -11,6 +11,10 @@ import app.storytel.candidate.com.databinding.FragmentPostListBinding
 import app.storytel.candidate.com.features.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * A fragment that is annotated with @AndroidEntryPoint can get the ViewModel instance as normal using ViewModelProvider or the by viewModels() using KTX
+ * ref: https://developer.android.com/training/dependency-injection/hilt-jetpack#viewmodels
+ */
 @AndroidEntryPoint
 class PostListFragment : BaseFragment<FragmentPostListBinding>() {
 

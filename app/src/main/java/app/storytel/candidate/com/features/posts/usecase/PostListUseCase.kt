@@ -16,7 +16,10 @@ import javax.inject.Inject
 class PostListUseCase @Inject constructor(
     private val postRepository: PostRepository
 ) {
-
+    /**
+     * In coroutines, a flow is a type that can emit multiple values sequentially, as opposed to suspend functions that return only a single value.
+     * ref: https://developer.android.com/kotlin/flow
+     */
     fun getCombinedPostsAndPhotos() = flow {
         emit(Resource.loading())
         emit(Resource.success(getPostsAndPhotos()))

@@ -13,6 +13,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * A ViewModel object provides the data for a specific UI component, such as a fragment or activity, and contains data-handling business logic to communicate with the model.
+ * Provide a ViewModel by annotating it with @HiltViewModel and using the @Inject annotation in the ViewModel object's constructor.
+ * ref: https://developer.android.com/training/dependency-injection/hilt-jetpack#viewmodels
+ */
 @HiltViewModel
 class PostViewModel @Inject constructor(
     private val postListUseCase: PostListUseCase
@@ -30,6 +35,7 @@ class PostViewModel @Inject constructor(
 
     fun getPostList() {
         viewModelScope.launch {
+            // Coroutine that will be canceled when the ViewModel is cleared.
             postListUseCase.getCombinedPostsAndPhotos().collect { state ->
                 _layoutViewState.value = LayoutViewState(state)
                 if (state is Resource.Success) {
