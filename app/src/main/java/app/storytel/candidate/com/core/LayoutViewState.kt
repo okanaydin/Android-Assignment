@@ -1,5 +1,8 @@
 package app.storytel.candidate.com.core
 
+/**
+ * Layout View State is a class that contains status about the data for tracking on the UI.
+ */
 class LayoutViewState(private val resource: Resource<*>) {
 
     fun isLoading() = resource is Resource.Loading
