@@ -11,5 +11,5 @@ interface PostService {
     suspend fun fetchPosts(): List<PostModel>
 
     @GET("/posts/{id}/comments")
-    suspend fun fetchComments(@Path("id") id: Int?): List<CommentModel>
+    suspend fun fetchComments(@Path("id") id: Int): List<CommentModel>
 }

@@ -6,13 +6,13 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CommentModel(
     @Json(name = "postId")
-    var postId: Int?,
+    val postId: Int?,
     @Json(name = "id")
-    var id: Int?,
+    val id: Int?,
     @Json(name = "name")
-    var name: String?,
+    val name: String?,
     @Json(name = "email")
-    var email: String?,
+    val email: String?,
     @Json(name = "body")
-    var body: String?
+    val body: String?
 )

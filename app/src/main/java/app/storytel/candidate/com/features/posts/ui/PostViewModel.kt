@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import app.storytel.candidate.com.core.LayoutViewState
-import app.storytel.candidate.com.core.Resource
+import app.storytel.candidate.com.features.core.LayoutViewState
+import app.storytel.candidate.com.features.core.Resource
 import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
 import app.storytel.candidate.com.features.posts.usecase.PostListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

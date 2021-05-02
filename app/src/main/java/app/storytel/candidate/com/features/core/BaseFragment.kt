@@ -1,4 +1,4 @@
-package app.storytel.candidate.com.features.base
+package app.storytel.candidate.com.features.core
 
 import android.os.Bundle
 import android.view.LayoutInflater

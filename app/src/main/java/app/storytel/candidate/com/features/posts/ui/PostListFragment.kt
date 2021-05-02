@@ -8,8 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import app.storytel.candidate.com.R
 import app.storytel.candidate.com.databinding.FragmentPostListBinding
-import app.storytel.candidate.com.features.base.BaseFragment
+import app.storytel.candidate.com.features.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A fragment that is annotated with @AndroidEntryPoint can get the ViewModel instance as normal using ViewModelProvider or the by viewModels() using KTX
@@ -18,31 +19,42 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostListFragment : BaseFragment<FragmentPostListBinding>() {
 
+    @Inject
+    lateinit var postAdapter: PostAdapter
+
     private val postViewModel: PostViewModel by viewModels()
-    private val postAdapter = PostAdapter()
 
     override fun getViewBinding(): FragmentPostListBinding =
         FragmentPostListBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        configureLayoutState()
-        configureToolBar()
-        configureUi()
-        initRecyclerView()
-        initViewModel()
+        setUpUi()
+        observePostList()
     }
 
-    private fun initRecyclerView() {
-        binding.recyclerViewPostList.adapter = postAdapter
-        postAdapter.postItemClickListener = { postItem ->
-            val direction = PostListFragmentDirections
-                .actionPostListFragmentToPostDetailFragment(postItem)
-            findNavController().navigate(direction)
+    private fun setUpUi() {
+        with(binding) {
+            observeLayoutViewState()
+
+            toolbar.title = getString(R.string.app_name)
+
+            swipeRefreshLayout.setOnRefreshListener(onRefreshListener())
+
+            contentFailed.buttonTryAgain.setOnClickListener {
+                postViewModel.getPostList()
+            }
+
+            binding.recyclerViewPostList.adapter = postAdapter
+            postAdapter.postItemClickListener = { postItem ->
+                val direction = PostListFragmentDirections
+                    .actionPostListFragmentToPostDetailFragment(postItem)
+                findNavController().navigate(direction)
+            }
         }
     }
 
-    private fun configureLayoutState() {
+    private fun observeLayoutViewState() {
         postViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 contentLoading.progressBar.isVisible = state.isLoading()
@@ -52,12 +64,9 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
         }
     }
 
-    private fun configureUi() {
-        with(binding) {
-            swipeRefreshLayout.setOnRefreshListener(onRefreshListener())
-            contentFailed.buttonTryAgain.setOnClickListener {
-                postViewModel.getPostList()
-            }
+    private fun observePostList() {
+        postViewModel.postList.observe(viewLifecycleOwner) { postAndPhotoList ->
+            postAdapter.submitList(postAndPhotoList)
         }
     }
 
@@ -66,15 +75,5 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
             postViewModel.getPostList()
             binding.swipeRefreshLayout.isRefreshing = false
         }
-    }
-
-    private fun initViewModel() {
-        postViewModel.postList.observe(viewLifecycleOwner) { postAndPhotoList ->
-            postAdapter.submitList(postAndPhotoList)
-        }
-    }
-
-    private fun configureToolBar() {
-        binding.toolbar.title = getString(R.string.app_name)
     }
 }

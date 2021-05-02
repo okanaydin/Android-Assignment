@@ -7,8 +7,10 @@ import android.view.animation.AnimationUtils
 import androidx.navigation.fragment.findNavController
 import app.storytel.candidate.com.R
 import app.storytel.candidate.com.databinding.FragmentSplashBinding
-import app.storytel.candidate.com.features.base.BaseFragment
+import app.storytel.candidate.com.features.core.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override fun getViewBinding(): FragmentSplashBinding =

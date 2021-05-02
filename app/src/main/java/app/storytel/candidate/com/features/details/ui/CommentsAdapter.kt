@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 
 class CommentsAdapter @Inject constructor() :
-    ListAdapter<CommentModel, CommentsAdapter.CommentViewHolder>(CommentListDiffUtil()) {
+    ListAdapter<CommentModel, CommentsAdapter.CommentViewHolder>(CommentsDiffUtil()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

@@ -8,7 +8,7 @@ import app.storytel.candidate.com.data.remote.datasource.model.CommentModel
  * and outputs a list of update operations that converts the first list into the second one.
  * ref: https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil
  */
-class CommentListDiffUtil : DiffUtil.ItemCallback<CommentModel>() {
+class CommentsDiffUtil : DiffUtil.ItemCallback<CommentModel>() {
     override fun areItemsTheSame(oldItem: CommentModel, newItem: CommentModel): Boolean {
         return oldItem == newItem
     }

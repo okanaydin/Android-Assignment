@@ -1,4 +1,4 @@
-package app.storytel.candidate.com.core
+package app.storytel.candidate.com.features.core
 
 /**
  * Layout View State is a class that contains status about the data for tracking on the UI.
