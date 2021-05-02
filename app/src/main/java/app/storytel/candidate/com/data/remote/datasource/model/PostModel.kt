@@ -9,11 +9,11 @@ import kotlinx.parcelize.Parcelize
 @JsonClass(generateAdapter = true)
 data class PostModel(
     @Json(name = "userId")
-    var userId: Int?,
+    val userId: Int?,
     @Json(name = "id")
-    var id: Int?,
+    val id: Int?,
     @Json(name = "title")
-    var title: String?,
+    val title: String?,
     @Json(name = "body")
-    var body: String?
+    val body: String?
 ) : Parcelable

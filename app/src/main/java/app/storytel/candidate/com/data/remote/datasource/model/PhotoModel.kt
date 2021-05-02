@@ -6,13 +6,13 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class PhotoModel(
     @Json(name = "albumId")
-    var albumId: Int?,
+    val albumId: Int?,
     @Json(name = "id")
-    var id: Int?,
+    val id: Int?,
     @Json(name = "title")
-    var title: String?,
+    val title: String?,
     @Json(name = "url")
-    var url: String?,
+    val url: String?,
     @Json(name = "thumbnailUrl")
-    var thumbnailUrl: String?
+    val thumbnailUrl: String?
 )

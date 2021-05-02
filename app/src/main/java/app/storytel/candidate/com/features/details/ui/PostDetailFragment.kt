@@ -6,16 +6,18 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import app.storytel.candidate.com.databinding.FragmentPostDetailBinding
-import app.storytel.candidate.com.features.base.BaseFragment
+import app.storytel.candidate.com.features.core.BaseFragment
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
-    private val commentsViewModel: CommentsViewModel by viewModels()
+    @Inject
+    lateinit var commentAdapter: CommentsAdapter
+    private val postDetailViewModel: PostDetailViewModel by viewModels()
     private val postArg by navArgs<PostDetailFragmentArgs>()
-    private val commentAdapter = CommentsAdapter()
     private lateinit var viewState: PostDetailViewState
 
     override fun getViewBinding(): FragmentPostDetailBinding =
@@ -23,20 +25,25 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpUi()
+        observeCommentList()
+    }
+
+    private fun setUpUi() {
         viewState = PostDetailViewState(postArg.post)
-        configureLayoutState()
-        configureToolBar()
-        configureUi()
-        initRecyclerView()
-        initViewModel()
+        observeLayoutViewState()
+        with(binding) {
+            toolbar.title = viewState.getPostTitle()
+            imageViewBanner.load(viewState.getImageUrl())
+            recyclerViewComments.adapter = commentAdapter
+            contentFailed.buttonTryAgain.setOnClickListener {
+                postDetailViewModel.getCommentList(viewState.getPostId())
+            }
+        }
     }
 
-    private fun initRecyclerView() {
-        binding.recyclerViewComments.adapter = commentAdapter
-    }
-
-    private fun configureLayoutState() {
-        commentsViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
+    private fun observeLayoutViewState() {
+        postDetailViewModel.layoutViewState.observe(viewLifecycleOwner) { state ->
             with(binding) {
                 contentLoading.progressBar.isVisible = state.isLoading()
                 recyclerViewComments.isVisible = state.isSuccess()
@@ -45,26 +52,10 @@ class PostDetailFragment : BaseFragment<FragmentPostDetailBinding>() {
         }
     }
 
-    private fun configureUi() {
-        with(binding) {
-            contentFailed.buttonTryAgain.setOnClickListener {
-                commentsViewModel.getCommentList(viewState.getPostId())
-                configureToolBar()
-            }
-        }
-    }
-
-    private fun initViewModel() {
-        commentsViewModel.commentList.observe(viewLifecycleOwner) { commentList ->
+    private fun observeCommentList() {
+        postDetailViewModel.getCommentList(viewState.getPostId())
+        postDetailViewModel.commentList.observe(viewLifecycleOwner) { commentList ->
             commentAdapter.submitList(commentList)
-        }
-        commentsViewModel.getCommentList(viewState.getPostId())
-    }
-
-    private fun configureToolBar() {
-        with(binding) {
-            imageViewBanner.load(viewState.getImageUrl())
-            toolbar.title = viewState.getPostTitle()
         }
     }
 }

@@ -1,6 +1,6 @@
 package app.storytel.candidate.com.features.posts.usecase
 
-import app.storytel.candidate.com.core.Resource
+import app.storytel.candidate.com.features.core.Resource
 import app.storytel.candidate.com.data.remote.datasource.model.PhotoModel
 import app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel
 import app.storytel.candidate.com.data.remote.datasource.model.PostModel
@@ -24,7 +24,7 @@ class PostListUseCase @Inject constructor(
         emit(Resource.loading())
         emit(Resource.success(getPostsAndPhotos()))
     }.catch { exception ->
-        emit(Resource.failed(exception.message.toString()))
+        emit(Resource.failed(exception))
     }.flowOn(Dispatchers.IO)
 
     /**
@@ -33,22 +33,37 @@ class PostListUseCase @Inject constructor(
      */
     private suspend fun getPostsAndPhotos() = coroutineScope {
 
-        val posts = async { postRepository.getPosts() }
-        val photos = async { postRepository.getPhotos() }
-        combinePostsAndPhotos(posts.await(), photos.await())
+        val deferredPhotos = async { postRepository.getPhotos() }
+        val photos = try {
+            deferredPhotos.await()
+        } catch (e: Exception) {
+            listOf()
+        }
+
+        val deferredPosts = async { postRepository.getPosts() }
+        val post = try {
+            deferredPosts.await()
+        } catch (e: Exception) {
+            listOf()
+        }
+        combinePostsAndPhotos(post, photos)
     }
 
     private fun combinePostsAndPhotos(
         postList: List<PostModel>,
         photoList: List<PhotoModel>
     ): List<PostAndPhotoModel> {
-        var selectedPhoto: PhotoModel
+        var selectedPhoto: PhotoModel?
         return postList.map { postResponse ->
-            selectedPhoto = photoList.random()
+            selectedPhoto = if (photoList.isEmpty()) {
+                null
+            } else {
+                photoList.random()
+            }
             PostAndPhotoModel(
                 postItem = postResponse,
-                thumbnailUrl = selectedPhoto.thumbnailUrl,
-                imageUrl = selectedPhoto.url
+                thumbnailUrl = selectedPhoto?.thumbnailUrl,
+                imageUrl = selectedPhoto?.url
             )
         }
     }

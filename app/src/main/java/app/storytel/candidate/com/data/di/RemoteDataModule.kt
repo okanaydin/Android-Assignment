@@ -64,7 +64,7 @@ object RemoteDataModule {
 
     @Provides
     @Singleton
-    fun provideMoshiConverterFactory() = MoshiConverterFactory.create()
+    fun provideMoshiConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create()
 
     @Provides
     @Singleton
