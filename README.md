@@ -35,8 +35,6 @@ Error Screen             |  Missing Data Screen |
     
     app.storytel.candidate.com    # root package
     .
-    ├── core
-    │   └── resource              # resource handling
     |
     ├── data
     │   ── remote                 # api calls
@@ -44,7 +42,9 @@ Error Screen             |  Missing Data Screen |
     │     └── remote data source  # data source
     |
     ├── features
-    │   ── feature1               # post list
+    │   └── core                  # resource handling
+    │                 
+    │   └── feature1              # post list
     │     └── di                  # dependency Injection
     │     └── repository          # repository
     │     └── ui                  # fragments, viewModel, viewState, adapters
