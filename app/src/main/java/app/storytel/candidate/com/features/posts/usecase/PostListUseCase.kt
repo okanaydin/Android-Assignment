@@ -34,13 +34,13 @@ class PostListUseCase @Inject constructor(
     private suspend fun getPostsAndPhotos() = coroutineScope {
 
         val deferredPhotos = async { postRepository.getPhotos() }
+        val deferredPosts = async { postRepository.getPosts() }
         val photos = try {
             deferredPhotos.await()
         } catch (e: Exception) {
             listOf()
         }
 
-        val deferredPosts = async { postRepository.getPosts() }
         val post = try {
             deferredPosts.await()
         } catch (e: Exception) {
