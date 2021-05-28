@@ -5,15 +5,10 @@ plugins {
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs")
     id("dagger.hilt.android.plugin")
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
-
-    /**
-     * Starting in November 2021, app updates will be required to target API level 30 or above and adjust for behavioral changes in Android 11.
-     * Existing apps that are not receiving updates are unaffected and can continue to be downloaded from the Play Store.
-     * https://developer.android.com/distribute/best-practices/develop/target-sdk
-     */
 
     compileSdkVersion(Configs.compileSdkVersion)
     defaultConfig {
@@ -47,6 +42,11 @@ android {
     viewBinding {
         android.buildFeatures.viewBinding = true
     }
+
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+        unitTests.isIncludeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -75,7 +75,19 @@ dependencies {
     kapt(Dependencies.daggerHiltCompiler)
     kapt(Dependencies.moshiCodegen)
 
+    testImplementation(Dependencies.archTest)
+    testImplementation(Dependencies.coroutinesTest)
     testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.truth)
+    testImplementation(Dependencies.truthExtensions)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.robolectric)
+
+    testImplementation(Dependencies.jupiterApi)
+    testRuntimeOnly(Dependencies.jupiterEngine)
+    testImplementation(Dependencies.jupiterParams)
+    testRuntimeOnly(Dependencies.jupiterVintageEngine)
+
     androidTestImplementation(Dependencies.jUnitExt)
     androidTestImplementation(Dependencies.espresso)
 }

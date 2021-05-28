@@ -14,6 +14,7 @@ buildscript {
         classpath(ClassPaths.gradle)
         classpath(ClassPaths.kotlinGradlePlugin)
         classpath(ClassPaths.navigationSafeArgPlugin)
+        classpath("de.mannodermaus.gradle.plugins:android-junit5:1.7.1.1")
     }
 }
 

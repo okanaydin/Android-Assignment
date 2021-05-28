@@ -1,0 +1,43 @@
+package com.okanaydin.assignment.features.posts.ui
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.okanaydin.assignment.data.remote.datasource.model.PostAndPhotoModel
+import com.okanaydin.assignment.features.core.LayoutViewState
+import com.okanaydin.assignment.features.core.Resource
+import com.okanaydin.assignment.features.posts.usecase.PostListUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+/**
+ * A ViewModel object provides the data for a specific UI component, such as a fragment or activity, and contains data-handling business logic to communicate with the model.
+ * Provide a ViewModel by annotating it with @HiltViewModel and using the @Inject annotation in the ViewModel object's constructor.
+ * ref: https://developer.android.com/training/dependency-injection/hilt-jetpack#viewmodels
+ */
+@HiltViewModel
+class PostViewModel @Inject constructor(
+    private val postListUseCase: PostListUseCase
+) : ViewModel() {
+
+    private val _postList = MutableLiveData<List<PostAndPhotoModel>>()
+    val postList: LiveData<List<PostAndPhotoModel>> = _postList
+
+    private val _layoutViewState = MutableLiveData<LayoutViewState>()
+    val layoutViewState: LiveData<LayoutViewState> = _layoutViewState
+
+    fun getPostList() {
+        viewModelScope.launch {
+            // Coroutine that will be canceled when the ViewModel is cleared.
+            postListUseCase.getCombinedPostsAndPhotos().collect { state ->
+                _layoutViewState.value = LayoutViewState(state)
+                if (state is Resource.Success) {
+                    _postList.value = state.data
+                }
+            }
+        }
+    }
+}
