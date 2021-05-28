@@ -1,7 +1,7 @@
-# Storytel Android Assignment
+# Android Assignment
 
 ## :scroll: Description
-This assignment created for Storytel that gives you basically a post list and its detail with comments. 
+This assignment gives you basically a post list and its detail with comments. 
 
 ## :iphone: Features
 
@@ -30,10 +30,12 @@ Error Screen             |  Missing Data Screen |
 * [Moshi](https://github.com/square/moshi)
 * [Coil](https://github.com/coil-kt/coil)
 * [ktlint](https://ktlint.github.io/)
+* [MockK](https://mockk.io/)
+* [Truth](https://truth.dev//)
 
 ## :file_folder: Package Structure
     
-    app.storytel.candidate.com    # root package
+    com.okanaydin.assignment    # root package
     .
     |
     ├── data

@@ -1,6 +1,6 @@
 object Configs {
 
-    const val applicationId = "app.storytel.candidate.com"
+    const val applicationId = "com.okanaydin.assignment"
     const val compileSdkVersion = 30
     const val minSdkVersion = 17
     const val targetSdkVersion = 30

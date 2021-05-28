@@ -67,7 +67,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                tools:context=".features.posts.ui.PostListFragment"
+                tools:context="com.okanaydin.assignment.features.posts.ui.PostListFragment"
                 tools:itemCount="2"
                 tools:listitem="@layout/item_comment"
                 tools:showIn="@layout/fragment_post_list" />

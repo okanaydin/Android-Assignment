@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="app.storytel.candidate.com.features.splash.SplashFragment"
+        android:name="com.okanaydin.assignment.features.splash.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/postListFragment"
-        android:name="app.storytel.candidate.com.features.posts.ui.PostListFragment"
+        android:name="com.okanaydin.assignment.features.posts.ui.PostListFragment"
         android:label="PostListFragment"
         tools:layout="@layout/fragment_post_list">
         <action
@@ -30,12 +30,12 @@
 
     <fragment
         android:id="@+id/postDetailFragment"
-        android:name="app.storytel.candidate.com.features.details.ui.PostDetailFragment"
+        android:name="com.okanaydin.assignment.features.details.ui.PostDetailFragment"
         android:label="PostDetailFragment"
         tools:layout="@layout/fragment_post_detail">
         <argument
             android:name="post"
-            app:argType="app.storytel.candidate.com.data.remote.datasource.model.PostAndPhotoModel" />
+            app:argType="com.okanaydin.assignment.data.remote.datasource.model.PostAndPhotoModel" />
     </fragment>
 
 </navigation>
